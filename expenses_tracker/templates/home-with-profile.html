@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <!-- Summary -->
+    {% if expenses %}
+        <div>
+            <h1>Summary</h1>
+            <ul class="expenses-list">
+                <!-- User Budget -->
+                <li class="blue">{{ budget|floatformat:2 }}$</li>
+                <!-- First Expense -->
+                {% for expense in expenses %}
+                    <li class="red"> - {{ expense.price|floatformat:2 }}$</li>
+                {% endfor %}
+                <li class="green">= {{ money_left|floatformat:2 }}$ left</li>
+            </ul>
+        </div>
+    {% endif %}
+    <!-- End Summary -->
+
+    <!-- Headline My Expenses -->
+    <h1>My Expenses</h1>
+    <!-- Add Expense Button -->
+    <a class="button add" href="{% url 'create expense page' %}">Add Expense</a>
+
+    {% if expenses %}
+        <div class="expenses-container">
+            {% for expense in expenses %}
+                <div class="expense-container">
+                    <h2>{{ expense.title }}</h2>
+                    <img src="{{ expense.expense_image }}"
+                         alt="description">
+                    <p>{{ expense.description }}</p>
+                    <div class="expense-detail">
+                        <div>
+                            <p>Price: {{ expense.price|floatformat:2 }}$</p>
+                        </div>
+                        <div class="right">
+                            <a class="button edit" href="{% url 'edit expense page' expense.pk %}">Edit</a>
+                            <a class="button delete" href="{% url 'delete expense page' expense.pk %}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

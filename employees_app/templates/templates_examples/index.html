@@ -1,0 +1,29 @@
+{% load int_filters %}
+{% load string_filters %}
+{% load departments_tags %}
+
+
+
+<p>{{ filesize|filesizeformat }}</p>
+<h1>{{ title|capitalize }} (Capitalize) </h1>
+<div>
+    {% if number > 200 %}
+        <p> Bigger than {{ number }} </p>
+    {% else %}
+        <h1> Lower than {{ number }} </h1>
+    {% endif %}
+</div>
+{% for number in numbers %}
+    <div>
+        {{ number }}
+    </div>
+    <div>
+        <h1>
+            {{ 1|increase_by:100 }}
+        </h1>
+    </div>
+{% endfor %}
+{% csrf_token %}
+{#<div>#}
+{#    {% departments_list %}#}
+{#</div>#}
